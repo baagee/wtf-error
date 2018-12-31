@@ -46,8 +46,10 @@ class WTF
      * @var array 配置
      */
     protected static $conf = [
-        'is_debug'          => true,#是否为调试模式
-        'php_error_log_dir' => ''#php error log路径
+        'is_debug'              => true,#是否为调试模式
+        'php_error_log_dir'     => '',#php error log路径
+        'product_error_hidden'  => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏那种错误类型
+        'product_error_message' => 'What the fuck! Looks like something went wrong',# 默认非调试模式下错误提示
     ];
 
     /**
@@ -69,6 +71,9 @@ class WTF
                 'FILES' => json_encode($_FILES, JSON_UNESCAPED_UNICODE),
             ], $_SERVER);
             $host        = $_SERVER['HTTP_HOST'];
+            if (self::$conf['is_debug'] == false) {
+                $errorMsg = self::$conf['product_error_message'];
+            }
             ob_end_clean();
             header("Content-type: text/html; charset=utf-8");
             include_once __DIR__ . '/WTFTemplate.php';

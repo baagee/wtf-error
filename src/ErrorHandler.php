@@ -29,7 +29,7 @@ trait ErrorHandler
         // 记录错误信息
         self::recordError($err_file, $err_line, $err_msg);
         if (self::$conf['is_debug'] == false) {
-            if (in_array($err_no, [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED])) {
+            if (in_array($err_no, self::$conf['product_error_hidden'])) {
                 return true;
             }
         }
