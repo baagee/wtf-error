@@ -1,0 +1,24 @@
+{
+  "name": "baagee/wtf-error",
+  "description": "What the fuck! PHP error handler",
+  "type": "library",
+  "minimum-stability": "dev",
+  "keywords": [
+    "php",
+    "error"
+  ],
+  "authors": [
+    {
+      "name": "BaAGee",
+      "email": "2274313786@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "WTF\\": "src/"
+    }
+  }
+}
