@@ -6,7 +6,7 @@
 页面上出错时：
 
 开启调试模式 会报所有异常，包括notice,warning等
-![](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/page.png)
+![](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/page.jpg)
 
 关闭开发模式
 
@@ -14,7 +14,7 @@
 ![](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/page3.png)
 
 命令行脚本出错时：
-![](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/QQ20181231-162107%402x.png)
+![](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/QQ20181231-162107%402x.jpg)
 
 具体使用：
 
