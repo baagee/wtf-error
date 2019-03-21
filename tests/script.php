@@ -8,7 +8,7 @@
 include_once __DIR__ . '/../vendor/autoload.php';
 
 
-\WTF\WTF::register([
+\BaAGee\Wtf\WtfError::register([
     'php_error_log_dir' => __DIR__ . '/log',
     'is_debug'          => false
 ]);
