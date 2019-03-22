@@ -17,6 +17,7 @@ class Test
     public function testa()
     {
         $i = mt_rand(1, 12);
+        // $i = 5;
         switch ($i) {
             case 1:
                 // E_ERROR

@@ -8,11 +8,11 @@
 include_once __DIR__ . '/../vendor/autoload.php';
 
 
-\BaAGee\Wtf\WtfError::register([
+\BaAGee\Wtf\WtfError::register(new \BaAGee\Wtf\Handler\WtfHandler([
     'php_error_log_dir' => __DIR__ . '/log',
-    'is_debug'          => false
-]);
+    'is_debug'          => true
+]));
 
-echo 'hello';
+echo 'hello' . PHP_EOL;
 include_once __DIR__ . '/error.php';
-echo 'ok';
+echo 'ok' . PHP_EOL;
