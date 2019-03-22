@@ -14,6 +14,9 @@ namespace BaAGee\Wtf\Base;
  */
 abstract class WtfHandlerAbstract
 {
+    /**
+     * @var string
+     */
     protected $errorType = '';
     /**
      * @var array 配置
@@ -44,6 +47,10 @@ abstract class WtfHandlerAbstract
         E_USER_DEPRECATED   => 'PHP User Deprecated'
     ];
 
+    /**
+     * WtfHandlerAbstract constructor.
+     * @param array $config
+     */
     final public function __construct(array $config = [])
     {
         ob_start();
@@ -52,6 +59,14 @@ abstract class WtfHandlerAbstract
         }
     }
 
+    /**
+     * @param int    $err_no
+     * @param string $err_msg
+     * @param string $err_file
+     * @param int    $err_line
+     * @return bool
+     * @throws \ErrorException
+     */
     final public function catchError(int $err_no, string $err_msg, string $err_file, int $err_line)
     {
         if ($this->checkAbleHidden($err_no)) {
@@ -60,6 +75,10 @@ abstract class WtfHandlerAbstract
         throw new \ErrorException($err_msg, $err_no, 1, $err_file, $err_line);
     }
 
+    /**
+     * @param $code
+     * @return bool
+     */
     protected function checkAbleHidden($code)
     {
         if (!$this->conf['is_debug'] && in_array($code, $this->conf['product_error_hidden'])) {
@@ -70,6 +89,10 @@ abstract class WtfHandlerAbstract
         }
     }
 
+    /**
+     * @param \Throwable $t
+     * @return mixed|string
+     */
     private function getErrorType(\Throwable $t)
     {
         if (isset(self::ERROR_TYPE_ARRAY[$t->getCode()])) {
@@ -115,5 +138,9 @@ abstract class WtfHandlerAbstract
         die;
     }
 
+    /**
+     * @param \Throwable $t
+     * @return mixed
+     */
     abstract public function throwableHandler(\Throwable $t);
 }
