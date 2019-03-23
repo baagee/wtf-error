@@ -23,8 +23,8 @@ abstract class WtfHandlerAbstract
      */
     protected $conf = [
         'is_debug'             => true,#是否为调试模式
-        'php_error_log_dir'    => '',#php error log路径
-        'product_error_hidden' => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏那种错误类型
+        'php_error_log_dir'    => '',#php error log路径不为空就调用写Log方法
+        'product_error_hidden' => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏哪种PHP错误类型
     ];
     /**
      * 错误码
@@ -72,7 +72,7 @@ abstract class WtfHandlerAbstract
         if ($this->checkAbleHidden($err_no)) {
             return true;
         }
-        throw new \ErrorException($err_msg, $err_no, 1, $err_file, $err_line);
+        throw new \ErrorException($err_msg, $err_no, 1, $err_file, $err_line, new \Error($err_msg, $err_no));
     }
 
     /**
@@ -93,10 +93,20 @@ abstract class WtfHandlerAbstract
      * @param \Throwable $t
      * @return mixed|string
      */
-    private function getErrorType(\Throwable $t)
+    private function getErrorType(\Throwable &$t)
     {
-        if (isset(self::ERROR_TYPE_ARRAY[$t->getCode()])) {
-            return self::ERROR_TYPE_ARRAY[$t->getCode()];
+        if (($t instanceof \Error) || ($t instanceof \ErrorException)) {
+            if ($t instanceof \Error) {
+                if (isset(self::ERROR_TYPE_ARRAY[$t->getCode()])) {
+                    $type = self::ERROR_TYPE_ARRAY[$t->getCode()];
+                }
+            } else {
+                if ($prev = $t->getPrevious()) {
+                    if ($prev instanceof \Error) {
+                        $type = self::ERROR_TYPE_ARRAY[$prev->getCode()];
+                    }
+                }
+            }
         } else {
             $arr = preg_split("/(?=[A-Z])/", get_class($t));
             if (isset($arr[1])) {
@@ -106,12 +116,11 @@ abstract class WtfHandlerAbstract
                     $type = 'PHP Parse error';
                 }
             }
-            if (!isset($type)) {
-                $type = get_class($t);
-            }
-            // echo "DEBUG====== type=" . $type . PHP_EOL;
-            return $type;
         }
+        if (!isset($type)) {
+            $type = get_class($t);
+        }
+        return $type;
     }
 
     /**
@@ -123,19 +132,27 @@ abstract class WtfHandlerAbstract
     {
         $this->errorType = $this->getErrorType($t);
         if (!empty($this->conf['php_error_log_dir'])) {
-            $log_str = sprintf('[%s] %s: %s ' . PHP_EOL . 'File:%s:%d' . PHP_EOL . '%s' . PHP_EOL, date('Y-m-d H:i:s'), $this->errorType, $t->getMessage(), $t->getFile(), $t->getLine(), $t->getTraceAsString());
-            if (!is_dir($this->conf['php_error_log_dir'])) {
-                exec('mkdir -p ' . $this->conf['php_error_log_dir']);
-            }
-            error_log($log_str, 3, $this->conf['php_error_log_dir'] . DIRECTORY_SEPARATOR . date('Y-m-d') . '.log');
+            $this->writePhpErrorLog($t);
         }
-        if ($this->checkAbleHidden($t->getCode())) {
-            return true;
+        if ($t instanceof \ErrorException) {
+            if ($prev = $t->getPrevious()) {
+                if ($prev instanceof \Error) {
+                    if ($this->checkAbleHidden($t->getCode())) {
+                        // 来自catchError的错误
+                        return true;
+                    }
+                }
+            }
         }
         ob_clean();
         $this->throwableHandler($t);
         ob_end_flush();
         die;
+    }
+
+    public function writePhpErrorLog(\Throwable $t)
+    {
+
     }
 
     /**

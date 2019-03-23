@@ -70,14 +70,14 @@ class WtfHandler extends WtfHandlerAbstract
         $file       = $t->getFile();
         $line       = $t->getLine();
         $sourceCode = self::getPhpCode($file, $line);//获取脚本出错位置代码
-        echo sprintf(PHP_EOL . "\033[1;37;41m[%d] %s\033[0m : \033[1;31m%s\033[0m" .
-            PHP_EOL . PHP_EOL, $code, $this->errorType, $msg);
+        echo sprintf(PHP_EOL . "\033[1;37;41m[%d] %s\033[0m: \033[1;31m%s\033[0m" . PHP_EOL . PHP_EOL, $code, $this->errorType, $msg);
         echo sprintf("at \033[1;37;42m%s : %d\033[0m " . PHP_EOL, $file, $line);
         $max_len = strlen(max(array_keys($sourceCode)));
         foreach ($sourceCode as $_line => $codeStr) {
             if (!empty($codeStr)) {
-                $codeStr = htmlspecialchars_decode($codeStr);
-                $_line   = $thisLine = str_pad($_line, $max_len, '0', STR_PAD_LEFT);
+                $codeStr  = htmlspecialchars_decode($codeStr);
+                $thisLine = $_line;
+                $_line    = str_pad($_line, $max_len, '0', STR_PAD_LEFT);
                 if ($line == $thisLine) {
                     echo sprintf("%s: \033[1;37;41m%s\033[0m" . PHP_EOL, $_line, rtrim($codeStr, PHP_EOL));
                 } else {
@@ -104,5 +104,19 @@ class WtfHandler extends WtfHandlerAbstract
             $fh->next();
         }
         return $content;
+    }
+
+    /**
+     * 写入php error log
+     * @param \Throwable $t
+     */
+    public function writePhpErrorLog(\Throwable $t)
+    {
+        $log_str = sprintf('[%s] [%d] %s: %s ' . PHP_EOL . 'File:%s:%d' . PHP_EOL . '%s' . PHP_EOL,
+            date('Y-m-d H:i:s'), $t->getCode(), $this->errorType, $t->getMessage(), $t->getFile(), $t->getLine(), $t->getTraceAsString());
+        if (!is_dir($this->conf['php_error_log_dir'])) {
+            exec('mkdir -p ' . $this->conf['php_error_log_dir']);
+        }
+        error_log($log_str, 3, $this->conf['php_error_log_dir'] . DIRECTORY_SEPARATOR . date('Y-m-d') . '.log');
     }
 }

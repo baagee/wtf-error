@@ -7,9 +7,10 @@
  */
 include_once __DIR__ . '/../vendor/autoload.php';
 
+// 脚本测试
 
 \BaAGee\Wtf\WtfError::register(new \BaAGee\Wtf\Handler\WtfHandler([
-    'php_error_log_dir' => __DIR__ . '/log',
+    'php_error_log_dir' => __DIR__ . '/log',//指定PHP错误log目录，为空 不记录
     'is_debug'          => true
 ]));
 

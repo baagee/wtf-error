@@ -1,0 +1,33 @@
+[2019-03-23 02:32:23] [0] TypeError: Argument 1 passed to testCall() must be an instance of A, instance of B given, called in /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php on line 66 
+File:/Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php:61
+#0 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(66): testCall(Object(B))
+#1 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(113): Test->testa()
+#2 /Users/baagee/PhpstormProjects/github/wtf-error/tests/index.php(18): include_once('/Users/baagee/P...')
+#3 {main}
+[2019-03-23 02:32:24] [0] TypeError: Argument 1 passed to testCall() must be an instance of A, instance of B given, called in /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php on line 66 
+File:/Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php:61
+#0 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(66): testCall(Object(B))
+#1 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(113): Test->testa()
+#2 /Users/baagee/PhpstormProjects/github/wtf-error/tests/index.php(18): include_once('/Users/baagee/P...')
+#3 {main}
+[2019-03-23 02:32:24] [0] TypeError: Argument 1 passed to testCall() must be an instance of A, instance of B given, called in /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php on line 66 
+File:/Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php:61
+#0 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(66): testCall(Object(B))
+#1 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(113): Test->testa()
+#2 /Users/baagee/PhpstormProjects/github/wtf-error/tests/index.php(18): include_once('/Users/baagee/P...')
+#3 {main}
+[2019-03-23 02:32:37] [0] TypeError: Argument 1 passed to testCall() must be an instance of A, instance of B given, called in /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php on line 66 
+File:/Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php:61
+#0 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(66): testCall(Object(B))
+#1 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(113): Test->testa()
+#2 /Users/baagee/PhpstormProjects/github/wtf-error/tests/index.php(18): include_once('/Users/baagee/P...')
+#3 {main}
+[2019-03-23 02:32:38] [256] PHP User Error: E_USER_ERROR trigger_error 
+File:/Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php:76
+#0 [internal function]: BaAGee\Wtf\Base\WtfHandlerAbstract->catchError(256, 'E_USER_ERROR tr...', '/Users/baagee/P...', 76)
+#1 /Users/baagee/PhpstormProjects/github/wtf-error/src/WtfError.php(32): call_user_func_array(Array, Array)
+#2 [internal function]: BaAGee\Wtf\WtfError::BaAGee\Wtf\{closure}(256, 'E_USER_ERROR tr...', '/Users/baagee/P...', 76, Array)
+#3 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(76): trigger_error('E_USER_ERROR tr...', 256)
+#4 /Users/baagee/PhpstormProjects/github/wtf-error/tests/error.php(113): Test->testa()
+#5 /Users/baagee/PhpstormProjects/github/wtf-error/tests/index.php(18): include_once('/Users/baagee/P...')
+#6 {main}

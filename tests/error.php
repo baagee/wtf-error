@@ -17,7 +17,7 @@ class Test
     public function testa()
     {
         $i = mt_rand(1, 12);
-        // $i = 5;
+        // $i = 6;
         switch ($i) {
             case 1:
                 // E_ERROR
@@ -86,7 +86,7 @@ class Test
                 trigger_error("E_USER_DEPRECATED trigger_error", E_USER_DEPRECATED);
                 break;
             case 11:
-                throw new PDOException('pdo Exception');
+                throw new PDOException('pdo Exception',1);
                 break;
             default:
                 throw new \Exception(__METHOD__ . ' 自定义异常', 1345678);

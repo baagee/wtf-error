@@ -15,6 +15,7 @@ include_once __DIR__ . '/../vendor/autoload.php';
 class MyHandler extends \BaAGee\Wtf\Base\WtfHandlerAbstract
 {
     /**
+     * 自定义错误异常显示 必须实现
      * @param Throwable $t
      */
     public function throwableHandler(\Throwable $t)
@@ -26,6 +27,12 @@ class MyHandler extends \BaAGee\Wtf\Base\WtfHandlerAbstract
             'file'    => $t->getFile(),
             'line'    => $t->getLine(),
         ], JSON_UNESCAPED_UNICODE);
+    }
+
+    // 自定义写入Log 不是必须的，不用自己调用，定义好方法就会自动调用
+    public function writePhpErrorLog(\Throwable $t)
+    {
+        file_put_contents('./log.log', $t->getMessage() . PHP_EOL, FILE_APPEND);
     }
 }
 
