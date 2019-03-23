@@ -7,12 +7,13 @@
  */
 include_once __DIR__ . '/../vendor/autoload.php';
 
+// 脚本测试
 
-\WTF\WTF::register([
-    'php_error_log_dir' => __DIR__ . '/log',
-    'is_debug'          => false
-]);
+\BaAGee\Wtf\WtfError::register(new \BaAGee\Wtf\Handler\WtfHandler([
+    'php_error_log_dir' => __DIR__ . '/log',//指定PHP错误log目录，为空 不记录
+    'is_debug'          => true
+]));
 
-echo 'hello';
+echo 'hello' . PHP_EOL;
 include_once __DIR__ . '/error.php';
-echo 'ok';
+echo 'ok' . PHP_EOL;
