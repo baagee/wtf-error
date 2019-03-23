@@ -3,41 +3,8 @@
 
 此类稍微封装了一下两种模式下的错误输出
 
-页面上出错时：
-
-开启调试模式 会报所有异常，包括notice,warning等
-![](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/page.jpg)
-
-关闭开发模式
-
-可以自定义隐藏错误类型，默认`E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED`不会提示，同时也会隐藏具体的错误代码等信息
-![](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/page3.png)
-
-命令行脚本出错时：
-![](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/QQ20181231-162107%402x.jpg)
-
 具体使用：
 
 `composer require baagee/wtf-error`
 
-code:
-```php
-<?php
-
-include_once __DIR__ . '/../vendor/autoload.php';
-
-\WTF\WTF::register([
-    'php_error_log_dir' => __DIR__ . '/log',# php错误log输出目录
-    'is_debug'          => true, #是否为调试模式
-    'product_error_hidden'  => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏那种错误类型
-    'product_error_message' => 'What the fuck! Looks like something went wrong',# 默认非调试模式下错误提示
-]);
-
-echo 'hello';
-include_once __DIR__ . '/error.php';
-echo 'ok';
-```
-
 详细见tests目录
-
-其他待扩展...
