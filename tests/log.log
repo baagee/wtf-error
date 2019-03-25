@@ -4,3 +4,4 @@ syntax error, unexpected '='
 syntax error, unexpected '='
 syntax error, unexpected '='
 syntax error, unexpected '='
+Call to undefined function abc()
