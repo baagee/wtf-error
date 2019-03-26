@@ -17,8 +17,14 @@
 ]));
 ```
 截图示例：
+
+访问页面出错时：
+
 ![示例](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_6fdddaaf-bba5-418f-9581-35a93afa2515.png)
 
+执行脚本出错时：
+
+![示例](https://meinv-1256151484.cos.ap-beijing.myqcloud.com/tuchuang/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_00cab1f8-dacb-4e85-bd55-475b019bfa82.png)
 ### 使用自定义的错误处理
 
 ```php
