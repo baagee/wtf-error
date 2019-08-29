@@ -25,6 +25,7 @@ abstract class WtfHandlerAbstract
         'is_debug'             => true,#是否为调试模式
         'php_error_log_dir'    => '',#php error log路径不为空就调用写Log方法
         'product_error_hidden' => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏哪种PHP错误类型
+        'dev_error_hidden'     => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 调试开发模式下隐藏哪种PHP错误类型
     ];
     /**
      * 错误码
@@ -81,11 +82,10 @@ abstract class WtfHandlerAbstract
      */
     protected function checkAbleHidden($code)
     {
-        if (!$this->conf['is_debug'] && in_array($code, $this->conf['product_error_hidden'])) {
-            // echo '不显示' . $t->getMessage() . PHP_EOL;
-            return true;
+        if ($this->conf['is_debug']) {
+            return in_array($code, $this->conf['dev_error_hidden']);
         } else {
-            return false;
+            return in_array($code, $this->conf['product_error_hidden']);
         }
     }
 
