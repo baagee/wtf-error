@@ -115,7 +115,8 @@ class WtfHandler extends WtfHandlerAbstract
         $log_str = sprintf('[%s] [%d] %s: %s ' . PHP_EOL . 'File:%s:%d' . PHP_EOL . '%s' . PHP_EOL,
             date('Y-m-d H:i:s'), $t->getCode(), $this->errorType, $t->getMessage(), $t->getFile(), $t->getLine(), $t->getTraceAsString());
         if (!is_dir($this->conf['php_error_log_dir'])) {
-            exec('mkdir -p ' . $this->conf['php_error_log_dir']);
+            mkdir($this->conf['php_error_log_dir'],0755,true);
+            // exec('mkdir -p ' . $this->conf['php_error_log_dir']);
         }
         error_log($log_str, 3, $this->conf['php_error_log_dir'] . DIRECTORY_SEPARATOR . date('Y-m-d') . '.log');
     }
