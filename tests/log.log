@@ -5,3 +5,4 @@ syntax error, unexpected '='
 syntax error, unexpected '='
 syntax error, unexpected '='
 Call to undefined function abc()
+E_USER_WARNING trigger_error
