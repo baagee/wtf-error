@@ -129,7 +129,7 @@ class WtfHandler extends WtfHandlerAbstract
         header('Content-Type: application/xml; charset=utf-8', true, 500);
         $data = $this->getErrorData($t);
         array_walk($data['err_php_code_arr'], function (&$v) {
-            $v = str_replace(PHP_EOL, '', $v);
+            $v = htmlspecialchars_decode(str_replace(PHP_EOL, '', $v));
         });
         $data = array_filter($data, function ($v) {
             return $v !== null;
@@ -170,7 +170,7 @@ class WtfHandler extends WtfHandlerAbstract
         header('Content-Type: application/json; charset=utf-8', true, 500);
         $data = $this->getErrorData($t);
         array_walk($data['err_php_code_arr'], function (&$v) {
-            $v = str_replace(PHP_EOL, '', $v);
+            $v = htmlspecialchars_decode(str_replace(PHP_EOL, '', $v));
         });
         $data = array_filter($data, function ($v) {
             return $v !== null;
