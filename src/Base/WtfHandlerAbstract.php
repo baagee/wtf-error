@@ -54,7 +54,9 @@ abstract class WtfHandlerAbstract
      */
     final public function __construct(array $config = [])
     {
-        ob_start();
+        if (PHP_SAPI != 'cli') {
+            ob_start();
+        }
         if (!empty($config)) {
             $this->conf = array_merge($this->conf, $config);
         }
@@ -144,9 +146,13 @@ abstract class WtfHandlerAbstract
                 }
             }
         }
-        ob_clean();
+        if (PHP_SAPI != 'cli') {
+            ob_clean();
+        }
         $this->throwableHandler($t);
-        ob_end_flush();
+        if (PHP_SAPI != 'cli') {
+            ob_end_flush();
+        }
         die;
     }
 
